@@ -41,7 +41,7 @@ return {
 
   -- Go forward/backward with square brackets
   {
-    "nvim-mini/mini.nvim",
+    "echasnovski/mini.bracketed",
     event = "BufReadPost",
     config = function()
       local bracketed = require("mini.bracketed")

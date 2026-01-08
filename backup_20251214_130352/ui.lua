@@ -57,16 +57,12 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 5000,
-      stages = "slide",
-      top_down = false,
-      render = "default",
-      max_width = 60,
-      max_height = 10,
     },
   },
+
   -- animations
   {
-    "nvim-mini/mini.animate",
+    "echasnovski/mini.animate",
     event = "VeryLazy",
     opts = function(_, opts)
       opts.scroll = {

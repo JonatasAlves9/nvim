@@ -1,16 +1,10 @@
 return {
-  -- Treesitter Playground (ferramenta de debug)
-  {
-    "nvim-treesitter/playground",
-    cmd = "TSPlaygroundToggle",
-  },
+  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
-  -- Configuração do Treesitter (apenas overrides)
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- Adiciona parsers extras aos que o LazyVim já configura
-      vim.list_extend(opts.ensure_installed or {}, {
+    opts = {
+      ensure_installed = {
         "astro",
         "cmake",
         "cpp",
@@ -27,21 +21,24 @@ return {
         "sql",
         "svelte",
         "vue",
-      })
+      },
 
-      -- Configurações extras do Treesitter
-      opts.query_linter = {
+      -- matchup = {
+      -- 	enable = true,
+      -- },
+
+      -- https://github.com/nvim-treesitter/playground#query-linter
+      query_linter = {
         enable = true,
         use_virtual_text = true,
         lint_events = { "BufWrite", "CursorHold" },
-      }
+      },
 
-      -- Playground settings
-      opts.playground = {
+      playground = {
         enable = true,
         disable = {},
-        updatetime = 25,
-        persist_queries = true,
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = true, -- Whether the query persists across vim sessions
         keybindings = {
           toggle_query_editor = "o",
           toggle_hl_groups = "i",
@@ -54,12 +51,12 @@ return {
           goto_node = "<cr>",
           show_help = "?",
         },
-      }
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
 
-      return opts
-    end,
-    -- Apenas adiciona suporte para MDX (LazyVim já faz o setup do treesitter)
-    init = function()
+      -- MDX
       vim.filetype.add({
         extension = {
           mdx = "mdx",

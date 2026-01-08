@@ -14,7 +14,7 @@ return {
   },
 
   {
-    "nvim-mini/mini.animate",
+    "echasnovski/mini.hipatterns",
     event = "BufReadPre",
     opts = {
       highlighters = {
